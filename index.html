@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INCULVATE — Inclusive Employment</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#172554;color:white;padding:18px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:800;letter-spacing:2px}.btn{border:0;border-radius:10px;padding:12px 18px;cursor:pointer;font-weight:700}
+.hero{padding:70px 7%;background:linear-gradient(135deg,#172554,#3730a3);color:white}
+.hero h1{font-size:48px;margin:0 0 14px}.hero p{font-size:19px;max-width:700px;line-height:1.6}
+.hero .btn{background:white;color:#172554;margin-right:10px}
+section{padding:40px 7%}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card{background:white;padding:24px;border-radius:16px;box-shadow:0 5px 20px #0000000d}
+.card h3{margin-top:0}.tag{display:inline-block;background:#e0e7ff;color:#3730a3;padding:6px 10px;border-radius:20px;font-size:12px;margin:4px}
+.job{border-left:5px solid #4f46e5}.safe{color:#15803d;font-weight:700}.warning{color:#b45309;font-weight:700}
+input,select{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #ccd2df;border-radius:9px}
+#message{margin-top:12px;font-weight:700}
+footer{text-align:center;padding:25px;background:#172554;color:white}
+</style>
+</head>
+<body>
+<header><div class="logo">INCULVATE</div><button class="btn" onclick="showProfile()">Create Profile</button></header>
+
+<div class="hero">
+<h1>Potential Meets Opportunity.</h1>
+<p>An AI-powered inclusive employment platform connecting freshers, unemployed individuals and non-degree workers with startups and entry-level employers — with intelligent fake-job detection.</p>
+<button class="btn" onclick="document.getElementById('jobs').scrollIntoView()">Explore Jobs</button>
+<button class="btn" onclick="document.getElementById('employer').scrollIntoView()">Post a Job</button>
+</div>
+
+<section>
+<h2>Why INCULVATE?</h2>
+<div class="grid">
+<div class="card"><h3>🎯 Inclusive Matching</h3><p>Discover opportunities based on skills and capability, not only experience.</p></div>
+<div class="card"><h3>🛡️ Fake Job Detection</h3><p>Suspicious job postings are flagged using multiple scam indicators.</p></div>
+<div class="card"><h3>🚀 Startup Opportunities</h3><p>Help growing companies find motivated entry-level candidates.</p></div>
+<div class="card"><h3>🤝 Equal Opportunity</h3><p>One platform for graduates, freshers and people without formal qualifications.</p></div>
+</div>
+</section>
+
+<section id="jobs">
+<h2>Recommended Opportunities</h2>
+<div class="grid">
+<div class="card job"><h3>Junior Data Assistant</h3><p>Startup • Chennai</p><span class="tag">Fresher</span><span class="tag">Excel</span><span class="tag">₹15K–20K</span><p class="safe">✓ Verified opportunity</p><button class="btn" onclick="apply('Junior Data Assistant')">Apply</button></div>
+<div class="card job"><h3>Office Support Assistant</h3><p>Small Business • Chennai</p><span class="tag">Entry Level</span><span class="tag">Communication</span><p class="safe">✓ Verified opportunity</p><button class="btn" onclick="apply('Office Support Assistant')">Apply</button></div>
+<div class="card job"><h3>Remote Data Entry — Earn ₹80K/week</h3><p>Unknown Employer</p><span class="tag">No Experience</span><p class="warning">⚠ Suspicious — flagged for review</p><button class="btn" onclick="alert('This posting is currently under safety review.')">View Safety Report</button></div>
+</div>
+<div id="message"></div>
+</section>
+
+<section id="employer">
+<h2>Post a Job</h2>
+<div class="card">
+<label>Company name</label><input id="company" placeholder="Your startup/company">
+<label>Job title</label><input id="title" placeholder="e.g. Junior Web Assistant">
+<label>Job description</label><input id="desc" placeholder="Describe skills, salary and requirements">
+<button class="btn" style="background:#3730a3;color:white" onclick="screenJob()">Run AI Safety Check</button>
+<div id="screen"></div>
+</div>
+</section>
+
+<section id="profile" style="display:none">
+<h2>Candidate Profile</h2>
+<div class="card">
+<label>Name</label><input placeholder="Your name">
+<label>Skills</label><input placeholder="Python, communication, Excel...">
+<label>Experience</label><select><option>Fresher</option><option>Less than 1 year</option><option>1+ years</option></select>
+<button class="btn" style="background:#3730a3;color:white" onclick="alert('Profile saved! INCULVATE can now match you with suitable opportunities.')">Save Profile</button>
+</div>
+</section>
+
+<footer>INCULVATE • Connect. Detect. Select.</footer>
+
+<script>
+function apply(job){document.getElementById('message').innerText='Application started for '+job+' — your profile will be matched with the employer.'}
+function showProfile(){document.getElementById('profile').style.display='block';document.getElementById('profile').scrollIntoView()}
+function screenJob(){
+ let t=(document.getElementById('title').value+' '+document.getElementById('desc').value).toLowerCase();
+ let suspicious=['pay','fee','deposit','guaranteed','earn ₹80k','money'];
+ let found=suspicious.some(x=>t.includes(x));
+ document.getElementById('screen').innerHTML=found
+ ? '<p class="warning">⚠ Safety Check: This posting contains indicators that require verification before publishing.</p>'
+ : '<p class="safe">✓ Safety Check: No obvious scam indicators detected. Further company verification is recommended.</p>';
+}
+</script>
+</body>
+</html>
